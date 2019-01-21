@@ -100,13 +100,13 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(setPastDate: withTag:)]) {
             [self.delegate setPastDate:[self.datePicker date] withTag:self.textFieldTag];;
         }
+//        [self.dateselectPopover dismissPopoverAnimated:YES];
     }else {
         if (self.delegate && [self.delegate respondsToSelector:@selector(setDate:)]) {
             [self.delegate setDate:[self.formatter stringFromDate:[self.datePicker date]]];
         }
-        
+//        [self.dateselectPopover dismissPopoverAnimated:YES];
     }
-    
     [self.dateselectPopover dismissPopoverAnimated:YES];
 }
 

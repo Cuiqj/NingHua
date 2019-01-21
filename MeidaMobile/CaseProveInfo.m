@@ -78,7 +78,7 @@
     
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setLocale:[NSLocale currentLocale]];
-    [dateFormatter setDateFormat:@"yyyy年MM月dd日HH时mm分"];
+    [dateFormatter setDateFormat:@"yyyy年M月d日HH时mm分"];
     NSString *happenDate=[dateFormatter stringFromDate:caseInfo.happen_date];
     
     NSNumberFormatter *numFormatter=[[NSNumberFormatter alloc] init];
@@ -453,7 +453,7 @@
     
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setLocale:[NSLocale currentLocale]];
-    [dateFormatter setDateFormat:@"yyyy年MM月dd日HH时mm分"];
+    [dateFormatter setDateFormat:@"yyyy年M月d日HH时mm分"];
     NSString *happenDate=[dateFormatter stringFromDate:caseInfo.happen_date];
     
     NSNumberFormatter *numFormatter=[[NSNumberFormatter alloc] init];

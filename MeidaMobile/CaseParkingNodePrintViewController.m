@@ -157,7 +157,7 @@ typedef enum _kTextFieldTag {
     CaseInfo *caseInfo = [CaseInfo caseInfoForID:self.caseID];
     if (caseInfo) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
+        [dateFormatter setDateFormat:@"yyyy年M月d日"];
         [dateFormatter setLocale:[NSLocale currentLocale]];
         NSString *dateString = [dateFormatter stringFromDate:caseInfo.happen_date];
         [self.textFieldHappenDate setText:dateString];
@@ -198,7 +198,12 @@ typedef enum _kTextFieldTag {
 }
 //显示所选时间
 - (void)setDate:(NSString *)date{
-    self.textFieldSendDate.text=date;
+    NSArray * arrayYear = [date componentsSeparatedByString:@"年"];
+    NSArray * arrayMonth = [[arrayYear objectAtIndex:1] componentsSeparatedByString:@"月"];
+    NSString * year = [arrayYear objectAtIndex:0];
+    NSString * month = [arrayMonth objectAtIndex:0];
+    NSString * day = [[[arrayMonth objectAtIndex:1] componentsSeparatedByString:@"日"] objectAtIndex:0];
+    self.textFieldSendDate.text = [NSString stringWithFormat:@"%d年%d月%d日",year.intValue,month.intValue,day.intValue];
 }
 #pragma mark - prepare for Segue
 //初始化各弹出选择页面
@@ -303,10 +308,18 @@ typedef enum _kTextFieldTag {
         NSString *dateString = self.textFieldHappenDate.text;
         NSArray *dateComponents = [dateString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"年月日"]];
         if (dateComponents.count > 2) {
+            NSString * month = dateComponents[1];
+            NSString * day = dateComponents[2];
+            if(month.integerValue <10){
+                month = [NSString stringWithFormat:@"%d",month.intValue];
+            }
+            if(day.integerValue <10){
+                day = [NSString stringWithFormat:@"%d",day.intValue];
+            }
             happenDate = @{
                            @"year": dateComponents[0],
-                           @"month": dateComponents[1],
-                           @"day": dateComponents[2],
+                           @"month": month,
+                           @"day": day
                            };
         }
         
@@ -314,10 +327,18 @@ typedef enum _kTextFieldTag {
         dateString = self.textFieldSendDate.text;
         dateComponents = [dateString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"年月日"]];
         if (dateComponents.count > 2) {
+            NSString * month = dateComponents[1];
+            NSString * day = dateComponents[2];
+            if(month.integerValue <10){
+                month = [NSString stringWithFormat:@"%d",month.intValue];
+            }
+            if(day.integerValue <10){
+                day = [NSString stringWithFormat:@"%d",day.intValue];
+            }
             sendDate = @{
                            @"year": dateComponents[0],
-                           @"month": dateComponents[1],
-                           @"day": dateComponents[2],
+                           @"month": month,
+                           @"day": day,
                            };
         }
         

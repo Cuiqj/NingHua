@@ -143,7 +143,7 @@ static NSString * const xmlName = @"ProveInfoTable";
     //勘验时间 没有时默认为当前时间 zhenlintie 2014-03-31
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //设置时间显示的格式。
-    [dateFormatter setDateFormat:@"yyyy年MM月dd日HH时mm分"];
+    [dateFormatter setDateFormat:@"yyyy年M月d日HH时mm分"];
     
     NSDate *sDate = self.caseProveInfo.start_date_time? self.caseProveInfo.start_date_time:[NSDate date];
     NSDate *eDate = self.caseProveInfo.end_date_time?self.caseProveInfo.end_date_time:[NSDate date];
@@ -212,7 +212,7 @@ static NSString * const xmlName = @"ProveInfoTable";
     // zhenlintie 2014-03-31
     /**/
      NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-     NSString *format = @"yyyy年MM月dd日HH时mm分";
+     NSString *format = @"yyyy年M月d日HH时mm分";
      [dateFormatter setDateFormat:format];
      self.caseProveInfo.start_date_time = [dateFormatter dateFromString:self.textstart_date_time.text];
      self.caseProveInfo.end_date_time = [dateFormatter dateFromString:self.textend_date_time.text];
@@ -367,14 +367,13 @@ static NSString * const xmlName = @"ProveInfoTable";
         self.caseProveInfo.start_date_time = date;
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy年MM月dd日HH时mm分"];
+        [dateFormatter setDateFormat:@"yyyy年M月d日HH时mm分"];
         [dateFormatter setLocale:[NSLocale currentLocale]];
         self.textstart_date_time.text = [dateFormatter stringFromDate:self.caseProveInfo.start_date_time];
     }else if (tag == self.textend_date_time.tag) {
         self.caseProveInfo.end_date_time = date;
-        
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy年MM月dd日HH时mm分"];
+        [dateFormatter setDateFormat:@"yyyy年M月d日HH时mm分"];
         [dateFormatter setLocale:[NSLocale currentLocale]];
         self.textend_date_time.text = [dateFormatter stringFromDate:self.caseProveInfo.end_date_time];
     }

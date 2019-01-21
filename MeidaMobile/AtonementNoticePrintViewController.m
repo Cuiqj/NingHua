@@ -68,10 +68,9 @@
         [self loadPageInfo];
     }
     [super viewDidLoad];
-    
-    self.view.frame                           = CGRectMake(0, 0,   1024, 1399);
+    self.view.frame                           = CGRectMake(0, 0, self.view.frame.size.width-200, 1300);
     self.labelDateSend.userInteractionEnabled = YES;
-    UIGestureRecognizer *tagGues=[[UIGestureRecognizer alloc]initWithTarget:self action:@selector(write:)];
+//    UIGestureRecognizer *tagGues=[[UIGestureRecognizer alloc]initWithTarget:self action:@selector(write:)];
     UITapGestureRecognizer *singleTap         = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     [self.labelDateSend addGestureRecognizer:singleTap];
     self.labelDateSend.backgroundColor=[UIColor lightGrayColor];
@@ -83,7 +82,7 @@
     } else {
         DateSelectController *datePicker=[self.storyboard instantiateViewControllerWithIdentifier:@"datePicker"];
         datePicker.delegate   = self;
-        datePicker.pickerType = 1;
+        datePicker.pickerType = 0;
         [datePicker showdate:self.labelDateSend.text];
         self.pickerPopover=[[UIPopoverController alloc] initWithContentViewController:datePicker];
         
@@ -96,9 +95,9 @@
 -(void)setDate:(NSString *)date{
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setLocale:[NSLocale currentLocale]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    [dateFormatter setDateFormat:@"yyyy-M-d"];
     NSDate *temp=[dateFormatter dateFromString:date];
-    [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
+    [dateFormatter setDateFormat:@"yyyy年M月d日"];
     NSString *dateString=[dateFormatter stringFromDate:temp];
     self.labelDateSend.text = dateString;
 }
@@ -160,7 +159,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setLocale:[NSLocale currentLocale]];
     //[dateFormatter setDateFormat:@"yyyy     年      MM      月      dd      日"];
-    [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
+    [dateFormatter setDateFormat:@"yyyy年M月d日"];
     self.labelDateSend.text = [dateFormatter stringFromDate:self.notice.date_send];
 }
 
@@ -385,27 +384,27 @@
         NSString *reviewOrgan = @"";
         
         NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        NSString *strDate = [dateFormatter stringFromDate:caseInfo.happen_date];
+//        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//        NSString *strDate = [dateFormatter stringFromDate:caseInfo.happen_date];
+//
+//        NSArray * tempArr = [[NSArray alloc]initWithArray:[[strDate substringToIndex:10] componentsSeparatedByString:@"-"]];
+//
+//        NSString *year = [tempArr objectAtIndex:0];
+//
+//        NSString *month = [tempArr objectAtIndex:1];
+//
+//        NSString *day = [tempArr objectAtIndex:2];
         
-        NSArray * tempArr = [[NSArray alloc]initWithArray:[[strDate substringToIndex:10] componentsSeparatedByString:@"-"]];
-        
-        NSString *year = [tempArr objectAtIndex:0];
-        
-        NSString *month = [tempArr objectAtIndex:1];
-        
-        NSString *day = [tempArr objectAtIndex:2];
-        
-        [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
+        [dateFormatter setDateFormat:@"yyyy年M月d日"];
         NSDate *temp=[dateFormatter dateFromString:self.labelDateSend.text];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        [dateFormatter setDateFormat:@"yyyy-M-d"];
         NSString *dateString=[dateFormatter stringFromDate:temp];
-        NSArray * tempArr1 = [[NSArray alloc]initWithArray:[[dateString substringToIndex:10] componentsSeparatedByString:@"-"]];
-        NSString *year1    = [tempArr1 objectAtIndex:0];
+        NSArray * tempArr1 = [[NSArray alloc]initWithArray:[dateString componentsSeparatedByString:@"-"]];
+        NSString *year   = [tempArr1 objectAtIndex:0];
         
-        NSString *month1 = [tempArr1 objectAtIndex:1];
+        NSString *month = [tempArr1 objectAtIndex:1];
         
-        NSString *day1 = [tempArr1 objectAtIndex:2];
+        NSString *day = [tempArr1 objectAtIndex:2];
         
         NSArray *payReasonArray;
         NSArray *notices = [AtonementNotice AtonementNoticesForCase:self.caseID];
@@ -468,9 +467,9 @@
                  @"year": year,
                  @"month": month,
                  @"day":day,
-                 @"year1": year1,
-                 @"month1": month1,
-                 @"day1":day1,
+//                 @"year1": year1,
+//                 @"month1": month1,
+//                 @"day1":day1,
                  @"payReason1":payReasonArray[0],
                  @"payReason2":payReasonArray[1]
                  };

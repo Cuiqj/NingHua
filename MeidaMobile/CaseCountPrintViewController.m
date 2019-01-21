@@ -43,7 +43,7 @@ static NSString * const xmlName = @"CaseCountTable";
     Citizen *citizen = [Citizen citizenForCitizenName:nil nexus:@"当事人" case:self.caseID];
     self.textRemark.text=caseInfo.casedeformation_remark;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy年MM月dd日HH时mm分"];
+    [dateFormatter setDateFormat:@"yyyy年M月d日HH时mm分"];
     [dateFormatter setLocale:[NSLocale currentLocale]];
     
     //self.labelCaseAddress.text = caseInfo.full_happen_place2;
@@ -272,20 +272,21 @@ static NSString * const xmlName = @"CaseCountTable";
         NSString * dataTemp = NSStringFromNSDateAndFormatter(caseInfo.happen_date, NSDateFormatStringCustom1);
         
         NSArray * arrayYear = [dataTemp componentsSeparatedByString:@"年"];
-        
         NSArray * arrayMonth = [[arrayYear objectAtIndex:1] componentsSeparatedByString:@"月"];
-        
         NSArray * arrayDay = [[arrayMonth objectAtIndex:1] componentsSeparatedByString:@"日"];
-        
         NSArray * arrayHour = [[arrayDay objectAtIndex:1] componentsSeparatedByString:@"时"];
-        
         NSArray * arrayMin = [[arrayHour objectAtIndex:1] componentsSeparatedByString:@"分"];
         
         NSString *year = NSStringNilIsBad([arrayYear objectAtIndex:0]);
         
         NSString *month = NSStringNilIsBad([arrayMonth objectAtIndex:0]);
-        
+        if(month.integerValue <10){
+            month = [NSString stringWithFormat:@"%d",month.intValue];
+        }
         NSString *day = NSStringNilIsBad([arrayDay objectAtIndex:0]);
+        if(day.integerValue <10){
+            day = [NSString stringWithFormat:@"%d",day.intValue];
+        }
         
         NSString *hour = NSStringNilIsBad([arrayHour objectAtIndex:0]);
         
