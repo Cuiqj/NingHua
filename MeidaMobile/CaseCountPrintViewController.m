@@ -316,12 +316,12 @@ static NSString * const xmlName = @"CaseCountTable";
                         };
     }
     
-    NSInteger emptyItemCnt = 11;
+    NSInteger emptyItemCnt = 16;
     id itemsData = [@[] mutableCopy];
     if (self.data != nil) {
         int i = 0;
         for (CaseDeformation *caseDeform in self.data) {
-            if (i >= 11) {
+            if (i >= 16) {
                 break;
             }
             id singleItem = @{
@@ -339,8 +339,8 @@ static NSString * const xmlName = @"CaseCountTable";
             emptyItemCnt--;
         }
     }
-    /* 若不足10个，用空数据补足 */
-    for (int i = 10-emptyItemCnt; i < 9; i++) {
+    /* 若不足16个，用空数据补足 */
+    for (int i = 16-emptyItemCnt; i <= 15; i++) {
         [itemsData addObject:@{@"id":@(i+1)}];
     }
     

@@ -247,8 +247,8 @@
         }
         
 //        payReason = [NSString stringWithFormat:@"%@的事实清楚，应当承担民事责任，赔偿路产损失。依%@规定，根据%@、%@之规定，", proveInfo.case_short_desc, breakStr, matchStr, payStr];
-       payReason = [NSString stringWithFormat:@"%@的事实清楚，应当承担民事责任，赔偿路产损失。依%@、%@、%@之规定，", proveInfo.case_short_desc, breakStr, matchStr, payStr];
-        
+//       payReason = [NSString stringWithFormat:@"%@的事实清楚，应当承担民事责任，赔偿路产损失。依%@、%@、%@之规定，", proveInfo.case_short_desc, breakStr, matchStr, payStr];
+        payReason = [NSString stringWithFormat:@"依%@、%@、%@",breakStr, matchStr, payStr];
     }
     notice.pay_reason = payReason;
     NSArray *deformations = [CaseDeformation deformationsForCase:caseID forCitizen:notice.citizen_name];
