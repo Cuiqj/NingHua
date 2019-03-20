@@ -50,8 +50,7 @@
 
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super setCaseID:self.caseID];
     [self LoadPaperSettings:@"AtonementNoticeTable"];
     /*modify by lxm 不能实时更新*/
@@ -208,7 +207,8 @@
     
     
     notice.witness = @"现场勘验笔录、询问笔录、现场勘查图、现场照片";
-    notice.check_organization = @"广东省公路管理局";
+    notice.check_organization = [[Systype typeValueForCodeName:@"复核单位"] objectAtIndex:0];
+//    @"广东省公路管理局";
 
     NSString *currentUserID=[[NSUserDefaults standardUserDefaults] stringForKey:USERKEY];
     OrgInfo *orgInfo = [OrgInfo orgInfoForOrgID:[UserInfo userInfoForUserID:currentUserID].organization_id];
@@ -425,6 +425,7 @@
             NSArray *paymentPlaces = [Systype typeValueForCodeName:@"交款地点"];
             if (paymentPlaces.count > 0) {
                 paymentPlace = [paymentPlaces objectAtIndex:0];
+//                @"闲暇中才是最幸福的， 也因此不会感到痛苦与无聊。 人真正的幸福，主要源自内在。 ";
             }
             reviewOrgan = NSStringNilIsBad(notice.check_organization);
             

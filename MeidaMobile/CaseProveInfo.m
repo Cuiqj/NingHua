@@ -331,6 +331,8 @@
 - (NSString *) recorder_org_duty{
     return [UserInfo orgAndDutyForUserName:self.recorder];
 }
+
+//询问笔录里事故经过
 + (NSString *)generateEventDescForInquire:(NSString *)caseID{
     CaseInfo *caseInfo = [CaseInfo caseInfoForID:caseID];
     NSString *roadName = [RoadSegment roadNameFromSegment:caseInfo.roadsegment_id];
@@ -365,11 +367,12 @@
         if (citizenArray.count == 1) {
             Citizen *citizen = [citizenArray objectAtIndex:0];
             
-            caseDescString = [caseDescString stringByAppendingFormat:@"我于%@驾驶%@%@行至%@%@%@由于%@发生交通事故，",happenDate,citizen.automobile_number,citizen.automobile_pattern,roadName,caseInfo.side,stationString,caseInfo.case_reason];
+//            caseDescString = [caseDescString stringByAppendingFormat:@"我于%@驾驶%@%@行至%@%@%@由于%@发生交通事故，",happenDate,citizen.automobile_number,citizen.automobile_pattern,roadName,caseInfo.side,stationString,caseInfo.case_reason];
+            caseDescString = [caseDescString stringByAppendingFormat:@"我于%@驾驶车牌号为%@%@行至%@%@%@发生交通事故，",happenDate,citizen.automobile_number,citizen.automobile_pattern,roadName,caseInfo.side,stationString];
         }
         if (citizenArray.count > 1) {
             Citizen *citizen = [citizenArray objectAtIndex:0];
-            caseDescString = [caseDescString stringByAppendingFormat:@"我%@于%@驾驶%@%@行至%@%@%@，与",citizen.party,happenDate,citizen.automobile_number,citizen.automobile_pattern,roadName,caseInfo.side,stationString];
+            caseDescString = [caseDescString stringByAppendingFormat:@"我%@于%@驾驶车牌号为%@%@行至%@%@%@，与",citizen.party,happenDate,citizen.automobile_number,citizen.automobile_pattern,roadName,caseInfo.side,stationString];
             for (int i = 1;i < citizenArray.count;i++) {
                 citizen = [citizenArray objectAtIndex:i];
                 if (i == 1) {
@@ -378,40 +381,41 @@
                     caseDescString = [caseDescString stringByAppendingFormat:@"、%@驾驶的%@%@",citizen.party,citizen.automobile_number,citizen.automobile_pattern];
                 }
             }
-            caseDescString = [caseDescString stringByAppendingFormat:@"由于%@发生碰撞，发生交通事故，",caseInfo.case_reason];
-            
+            caseDescString = [caseDescString stringByAppendingFormat:@"发生交通事故，",caseInfo.case_reason];
         }
     }
-    CaseProveInfo *proveInfo = [CaseProveInfo proveInfoForCase:caseID];
-    if ([proveInfo.case_desc_id isEqualToString:@"972"]){
-        caseDescString = [caseDescString stringByAppendingFormat:@"导致损坏、污染公路路产。"];
-    } else if ([proveInfo.case_desc_id isEqualToString:@"970"]){
-        caseDescString = [caseDescString stringByAppendingFormat:@"导致损坏公路路产。"];
-    } else if ([proveInfo.case_desc_id isEqualToString:@"971"]){
-        caseDescString = [caseDescString stringByAppendingFormat:@"导致污染公路路产。"];
-
-    }
-    return caseDescString;
+//    CaseProveInfo *proveInfo = [CaseProveInfo proveInfoForCase:caseID];
+//    if ([proveInfo.case_desc_id isEqualToString:@"972"]){
+//        caseDescString = [caseDescString stringByAppendingFormat:@"导致损坏、污染公路路产。"];
+//    } else if ([proveInfo.case_desc_id isEqualToString:@"970"]){
+//        caseDescString = [caseDescString stringByAppendingFormat:@"导致损坏公路路产。"];
+//    } else if ([proveInfo.case_desc_id isEqualToString:@"971"]){
+//        caseDescString = [caseDescString stringByAppendingFormat:@"导致污染公路路产。"];
+//
+//    }
+    return [caseDescString stringByAppendingFormat:@"造成公路路产损坏。"];
 }
+
+
+//    //伤亡情况
 + (NSString *)generateWoundDesc:(NSString *)caseID{
     CaseInfo *caseInfo = [CaseInfo caseInfoForID:caseID];
-    
-    //伤亡情况
     NSString *caseStatusString = @"";
     if (caseInfo.fleshwound_sum.integerValue == 0 && caseInfo.badwound_sum.integerValue == 0 && caseInfo.death_sum.integerValue == 0) {
         caseStatusString = [caseStatusString stringByAppendingString:@"无人员伤亡。"];
     } else {
         if (caseInfo.fleshwound_sum.integerValue != 0) {
-            caseStatusString = [caseStatusString stringByAppendingFormat:@"轻伤%@人。",caseInfo.fleshwound_sum];
+            caseStatusString = [caseStatusString stringByAppendingFormat:@"轻伤%@人,",caseInfo.fleshwound_sum];
         }
         if (caseInfo.badwound_sum.integerValue != 0) {
-            caseStatusString = [caseStatusString stringByAppendingFormat:@"重伤%@人。",caseInfo.badwound_sum];
+            caseStatusString = [caseStatusString stringByAppendingFormat:@"重伤%@人,",caseInfo.badwound_sum];
         }
         if (caseInfo.death_sum.integerValue != 0) {
-            caseStatusString = [caseStatusString stringByAppendingFormat:@"死亡%@人。",caseInfo.death_sum];
+            caseStatusString = [caseStatusString stringByAppendingFormat:@"死亡%@人,",caseInfo.death_sum];
         }
     }
-    return caseStatusString;
+    caseStatusString = [caseStatusString substringToIndex:caseStatusString.length-1];
+    return [NSString stringWithFormat:@"%@。",caseStatusString];
 }
 + (NSString*)generateDefaultPayReason:(NSString *)caseID{
     CaseProveInfo *proveInfo = [CaseProveInfo proveInfoForCase:caseID];

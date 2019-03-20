@@ -836,17 +836,17 @@ enum kUITextFieldTag {
     }
     NSString *organizationName = [orgInfo valueForKey:@"orgname"];
     CaseInfo *caseinfo=[CaseInfo caseInfoForID:self.caseID];
-    NSString* text = [NSString stringWithFormat:@"%@%@%@",@"问：你好，我们是",organizationName,@"管理员，请你将车辆损坏公路路产的详细经过描述一遍，你要如实反映，不得弄虚作假，否则将承担法律责任。你明白吗？\n" ];
+    NSString* text = [NSString stringWithFormat:@"%@%@%@",@"问：你好，我们是",organizationName,@"管理员，向你了解一些情况，希望你如实回答，不得说假话做伪证，否则是要负法律责任的，你明白吗？\n" ];
     //text = [NSString stringWithFormat:@"%@答：明白，我于%@驾驶车牌%@%@行至%@处由于发生交通事故，导致%@。\n",text,@"答：明白。\n"];
-    text = [NSString stringWithFormat:@"%@答：明白，%@\n",text,[CaseProveInfo generateEventDescForInquire:self.caseID]];
-//    text = [NSString stringWithFormat:@"%@%@",text,@"问：事故车辆是由谁驾驶的？\n" ];
-//    text = [NSString stringWithFormat:@"%@%@",text,@"答：是我驾驶的。\n" ];
-    text = [NSString stringWithFormat:@"%@%@",text,@"问：司乘人员共多少人？\n" ];
-    text = [NSString stringWithFormat:@"%@%@",text,@"答：共有人。\n" ];
+    text = [NSString stringWithFormat:@"%@答：明白。\n",text];
+    text = [NSString stringWithFormat:@"%@%@",text,@"问：事故车辆是由谁驾驶的？\n" ];
+    text = [NSString stringWithFormat:@"%@%@",text,@"答：是我驾驶的。\n" ];
+//    text = [NSString stringWithFormat:@"%@%@",text,@"问：司乘人员共多少人？\n" ];
+//    text = [NSString stringWithFormat:@"%@%@",text,@"答：共有人。\n" ];
     
     text = [NSString stringWithFormat:@"%@%@",text,@"问：此次事故有无人员伤亡？\n答：" ];
     text = [NSString stringWithFormat:@"%@%@\n",text,[CaseProveInfo generateWoundDesc:self.caseID] ];
-   
+    text = [NSString stringWithFormat:@"%@%@%@",text,@"问：请你讲述一下事故发生的经过？\n答：", [CaseProveInfo generateEventDescForInquire:self.caseID]];
     NSString *deformDes = @"";
     if (![self.answererName isEmpty]) {
         NSString *nexus = @"当事人";
@@ -856,10 +856,12 @@ enum kUITextFieldTag {
         Citizen *citizen = [Citizen citizenForParty:self.answererName  case:self.caseID nexus:nexus ];
         deformDes = [self getDeformDescWithCitizenName2:citizen.automobile_number];
     }
-    //text = [NSString stringWithFormat:@"%@问：经勘查,本次事故造成路产损坏：%@，%@\n",text,deformDes,[CaseProveInfo generateDefaultPayReason:self.caseID]];
-    text = [NSString stringWithFormat:@"%@问：根据《中华人民共和国公路法》第五十二条，按照《中华人民共和国公路法》第八十五条和《广东省公路条例》第二十三条规定，并按照广东省《损坏公路路产赔偿标准》（粤交路[1998]38号、粤交路[1999]263号文）的规定，你应对此行为承担民事责任，赔偿路产损失，你有误异议？\n",text];
+    text = [NSString stringWithFormat:@"%@\n问：经勘查,本次事故造成路产损坏：%@，",text,deformDes];
+//            [CaseProveInfo generateDefaultPayReason:self.caseID];
+    text = [NSString stringWithFormat:@"%@根据《中华人民共和国公路法》第五十二条，按照《中华人民共和国公路法》第八十五条和《广东省公路条例》第二十三条规定，你应对此行为承担民事责任，赔偿路产损失，赔偿标准依广东省《损坏公路路产赔偿标准》（粤交路[1998]38号、粤交路[1999]263号文）的规定，你有无异议？\n",text];
     text = [NSString stringWithFormat:@"%@%@",text,@"答：无异议。\n问：你还有什么要补充的吗？\n答：没有。\n" ];
-    text = [NSString stringWithFormat:@"%@%@",text,@"问：你对上述笔录无异议请签名按印？" ];
+    text = [NSString stringWithFormat:@"%@%@",text,@"问：你对上述笔录无异议请签名按印？\n" ];
+    text = [NSString stringWithFormat:@"%@%@",text,@"答：好。" ];
     return text;
 }
 @end
