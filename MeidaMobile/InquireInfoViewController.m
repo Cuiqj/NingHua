@@ -858,7 +858,7 @@ enum kUITextFieldTag {
     }
     text = [NSString stringWithFormat:@"%@\n问：经勘查,本次事故造成路产损坏：%@，",text,deformDes];
 //            [CaseProveInfo generateDefaultPayReason:self.caseID];
-    text = [NSString stringWithFormat:@"%@根据《中华人民共和国公路法》第五十二条，按照《中华人民共和国公路法》第八十五条和《广东省公路条例》第二十三条规定，你应对此行为承担民事责任，赔偿路产损失，赔偿标准依广东省《损坏公路路产赔偿标准》（粤交路[1998]38号、粤交路[1999]263号文）的规定，你有无异议？\n",text];
+    text = [NSString stringWithFormat:@"%@根据《中华人民共和国公路法》第五十三条，按照《中华人民共和国公路法》第八十五条和《广东省公路条例》第二十三条规定，你应对此行为承担民事责任，赔偿路产损失，赔偿标准依广东省《损坏公路路产赔偿标准》（粤交路[1998]38号、粤交路[1999]263号文）的规定，你有无异议？\n",text];
     text = [NSString stringWithFormat:@"%@%@",text,@"答：无异议。\n问：你还有什么要补充的吗？\n答：没有。\n" ];
     text = [NSString stringWithFormat:@"%@%@",text,@"问：你对上述笔录无异议请签名按印？\n" ];
     text = [NSString stringWithFormat:@"%@%@",text,@"答：好。" ];
