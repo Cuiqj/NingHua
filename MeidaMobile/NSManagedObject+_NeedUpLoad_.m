@@ -114,6 +114,9 @@
 }
 
 - (NSString *)dataXMLString{
+    NSString *currentUserID=[[NSUserDefaults standardUserDefaults] stringForKey:USERKEY];
+    NSString * currentOrgID = [UserInfo userInfoForUserID:currentUserID].organization_id;
+    
     NSString *dataXMLString = @"";
     NSEntityDescription *entity=[self entity];
     NSDictionary *attributes = [entity attributesByName];
@@ -124,8 +127,22 @@
             id obj = [self valueForKey:attriName];
             switch (attriDesc.attributeType) {
                 case NSStringAttributeType:{
+//                    if([attriName isEqualToString:@"classe"]) {
+//                        if([obj containsString:@"早班01:53 回到安流"]){
+//                            obj = @"早班";
+//                        }
+//                    }
                     if (obj == nil) {
                         obj = @"";
+                        if ([attriName isEqualToString:@"organization_id"]) {
+                            obj = currentOrgID;
+                        }
+                        if ([attriName isEqualToString:@"inspection_id"]) {
+                            obj = currentOrgID;
+                        }
+                        if ([attriName isEqualToString:@"inspectionid"]) {
+                            obj = currentOrgID;
+                        }
                     }
                     if (![attriName isEqualToString:@"maintainplan_id"]) {
                         if ([attriName isEqualToString:@"myid"]) {

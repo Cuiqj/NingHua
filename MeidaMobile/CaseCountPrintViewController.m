@@ -281,11 +281,11 @@ static NSString * const xmlName = @"CaseCountTable";
         
         NSString *month = NSStringNilIsBad([arrayMonth objectAtIndex:0]);
         if(month.integerValue <10){
-            month = [NSString stringWithFormat:@"%d",month.intValue];
+            month = [NSString stringWithFormat:@"0%d",month.intValue];
         }
         NSString *day = NSStringNilIsBad([arrayDay objectAtIndex:0]);
         if(day.integerValue <10){
-            day = [NSString stringWithFormat:@"%d",day.intValue];
+            day = [NSString stringWithFormat:@"0%d",day.intValue];
         }
         
         NSString *hour = NSStringNilIsBad([arrayHour objectAtIndex:0]);
